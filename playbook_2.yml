@@ -7,21 +7,18 @@
   become_user: root
 
   tasks:
-  - name: install packages
+  - name: delete httpd
     package:
       name:
         - httpd
-      state: latest
-  - name: start httpd
-    service: name=httpd state=started
-  - name: edit text
-    lineinfile:
+      state: absent
+  - name: delete file
+    file:
       path: /var/www/html/index.html
-      line: Welcome to my web server
-      create: yes
+      state: absent
   - name: give port access
     firewalld:
       port: 80/tcp
       permanent: yes
-      state: enabled
+      state: disabled
 ...
