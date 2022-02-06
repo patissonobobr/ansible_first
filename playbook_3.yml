@@ -9,8 +9,10 @@
   tasks:
   - name: edit grub
     lineinfile:
-      path: /opt/grub
+      path: /etc/default/grub
       regexp: '^(GRUB_CMDLINE_LINUX=.*)"\n'
-      line: '$1 net.ifnames=0 biosdevname=0"\n'
+      line: '\1 net.ifnames=0 biosdevname=0"\n'
       backrefs: yes
+  - name: run grub2-mkconfig
+    command: grub2-mkconfig
 ...
