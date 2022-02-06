@@ -1,0 +1,24 @@
+---
+- name: first playbook
+  hosts: node1.example.com
+  user: ansible
+  become: yes
+  become_method: sudo
+  become_user: root
+
+  tasks:
+  - name: delete httpd
+    package:
+      name:
+        - httpd
+      state: absent
+  - name: delete file
+    file:
+      path: /var/www/html/index.html
+      state: absent
+  - name: give port access
+    firewalld:
+      port: 80/tcp
+      permanent: yes
+      state: disabled
+...
