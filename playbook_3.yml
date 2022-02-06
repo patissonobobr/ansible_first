@@ -1,0 +1,16 @@
+---
+- name: first playbook
+  hosts: node1.example.com
+  user: ansible
+  become: yes
+  become_method: sudo
+  become_user: root
+
+  tasks:
+  - name: edit grub
+    lineinfile:
+      path: /opt/grub
+      regexp: '^(GRUB_CMDLINE_LINUX=.*)"\n'
+      line: '$1 net.ifnames=0 biosdevname=0"\n'
+      backrefs: yes
+...
