@@ -11,6 +11,17 @@
     package:
       name:
         - httpd
-        - apache
-      state: latest 
+      state: latest
+  - name: start httpd
+    service: name=httpd state=started
+  - name: edit text
+    lineinfile:
+      path: /var/www/html/index.html
+      line: Welcome to my web server
+      create: yes
+  - name: give port access
+    firewalld:
+      port: 80/tcp
+      permanent: yes
+      state: enabled
 ...
